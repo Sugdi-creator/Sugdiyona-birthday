@@ -7,366 +7,605 @@
 <title>Sug‘diyonaning tug‘ilgan kuni 🎂</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{
+  box-sizing:border-box;
 }
 
-html {
-  scroll-behavior: smooth;
+html{
+  scroll-behavior:smooth;
 }
 
-body {
-  margin: 0;
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:#342b3d;
+  overflow-x:hidden;
+
   background:
-    radial-gradient(circle at 10% 10%, #ffe5f0 0, transparent 25%),
-    radial-gradient(circle at 90% 20%, #e9e2ff 0, transparent 25%),
-    linear-gradient(135deg, #fff8fb, #f8f5ff);
-  color: #332b3d;
-  min-height: 100vh;
-  overflow-x: hidden;
+    radial-gradient(circle at 10% 15%,rgba(255,190,215,.45),transparent 28%),
+    radial-gradient(circle at 90% 10%,rgba(205,190,255,.42),transparent 28%),
+    radial-gradient(circle at 50% 100%,rgba(255,220,235,.35),transparent 35%),
+    linear-gradient(135deg,#fff8fb,#f8f5ff);
 }
 
-/* Bezaklar */
+/* -------------------- BACKGROUND -------------------- */
 
-.decoration {
-  position: fixed;
-  font-size: 28px;
-  opacity: .45;
-  pointer-events: none;
-  animation: float 5s ease-in-out infinite;
-  z-index: 0;
+.background-glow{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
 }
 
-.d1 {
-  top: 10%;
-  left: 4%;
+.glow{
+  position:absolute;
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  filter:blur(60px);
+  opacity:.35;
+  animation:glowMove 8s ease-in-out infinite alternate;
 }
 
-.d2 {
-  top: 25%;
-  right: 5%;
-  animation-delay: 1s;
+.glow.one{
+  background:#ffb6d2;
+  left:-80px;
+  top:20%;
 }
 
-.d3 {
-  bottom: 15%;
-  left: 6%;
-  animation-delay: 2s;
+.glow.two{
+  background:#c6b5ff;
+  right:-80px;
+  top:40%;
+  animation-delay:2s;
 }
 
-.d4 {
-  bottom: 8%;
-  right: 8%;
-  animation-delay: 3s;
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0) rotate(0deg);
+@keyframes glowMove{
+  from{
+    transform:translate(0,0) scale(1);
   }
-
-  50% {
-    transform: translateY(-15px) rotate(8deg);
+  to{
+    transform:translate(50px,-30px) scale(1.25);
   }
 }
 
-/* Asosiy qism */
+/* -------------------- FLOATING HEARTS -------------------- */
 
-.container {
-  position: relative;
-  z-index: 1;
-  max-width: 1050px;
-  margin: auto;
-  padding: 30px 18px 70px;
+.float-heart{
+  position:fixed;
+  bottom:-50px;
+  font-size:20px;
+  pointer-events:none;
+  z-index:2;
+  opacity:0;
+  animation:heartUp linear forwards;
 }
 
-/* Yuqori qism */
-
-.hero {
-  text-align: center;
-  padding: 25px 10px 35px;
-}
-
-.badge {
-  display: inline-block;
-  background: rgba(255, 255, 255, .85);
-  border: 1px solid #eaddea;
-  border-radius: 999px;
-  padding: 9px 17px;
-  font-size: 14px;
-  box-shadow: 0 8px 25px rgba(70, 40, 80, .06);
-}
-
-h1 {
-  font-size: clamp(34px, 7vw, 58px);
-  line-height: 1.1;
-  margin: 20px 0 12px;
-  background: linear-gradient(90deg, #332b3d, #a34d75, #6c54a3);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.subtitle {
-  font-size: 17px;
-  color: #756b7d;
-  max-width: 680px;
-  margin: auto;
-  line-height: 1.7;
-}
-
-.birthday-message {
-  margin: 25px auto 0;
-  max-width: 650px;
-  background: rgba(255, 255, 255, .72);
-  border: 1px solid #eee4ef;
-  border-radius: 22px;
-  padding: 18px 20px;
-  color: #5d5265;
-  box-shadow: 0 10px 35px rgba(70, 40, 80, .06);
-}
-
-/* Sovg'alar */
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
-  gap: 20px;
-}
-
-.card {
-  position: relative;
-  background: rgba(255, 255, 255, .88);
-  border: 1px solid #eee4ef;
-  border-radius: 24px;
-  padding: 24px;
-  box-shadow: 0 10px 35px rgba(70, 40, 80, .08);
-  transition: .25s ease;
-  overflow: hidden;
-}
-
-.card::before {
-  content: "";
-  position: absolute;
-  width: 90px;
-  height: 90px;
-  background: #ffe7f1;
-  border-radius: 50%;
-  top: -45px;
-  right: -35px;
-  opacity: .6;
-}
-
-.card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(70, 40, 80, .13);
-}
-
-.icon {
-  font-size: 48px;
-  margin-bottom: 5px;
-}
-
-.name {
-  font-size: 20px;
-  font-weight: 750;
-  margin: 10px 0;
-}
-
-.status {
-  font-size: 14px;
-  margin: 8px 0 18px;
-  font-weight: 600;
-}
-
-.available {
-  color: #27844c;
-}
-
-.taken {
-  color: #b44a67;
-}
-
-button {
-  width: 100%;
-  border: 0;
-  border-radius: 14px;
-  padding: 13px 15px;
-  font-size: 15px;
-  font-weight: 750;
-  cursor: pointer;
-  background: #332b3d;
-  color: #fff;
-  transition: .2s;
-}
-
-button:hover {
-  transform: scale(1.02);
-  background: #493d53;
-}
-
-button:disabled {
-  background: #e8e2ea;
-  color: #8b8190;
-  cursor: not-allowed;
-  transform: none;
-}
-
-/* Izoh */
-
-.note {
-  margin-top: 32px;
-  text-align: center;
-  color: #8a8090;
-  font-size: 13px;
-  line-height: 1.6;
-}
-
-/* Modal */
-
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(35, 25, 40, .58);
-  backdrop-filter: blur(5px);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  z-index: 100;
-}
-
-.modal.show {
-  display: flex;
-}
-
-.modalbox {
-  background: #fff;
-  border-radius: 28px;
-  max-width: 450px;
-  width: 100%;
-  padding: 30px;
-  box-shadow: 0 25px 80px rgba(0, 0, 0, .2);
-  animation: popup .25s ease;
-}
-
-@keyframes popup {
-  from {
-    opacity: 0;
-    transform: scale(.9);
+@keyframes heartUp{
+  0%{
+    transform:translateY(0) rotate(0);
+    opacity:0;
   }
 
-  to {
-    opacity: 1;
-    transform: scale(1);
+  15%{
+    opacity:.7;
+  }
+
+  100%{
+    transform:translateY(-115vh) rotate(360deg);
+    opacity:0;
   }
 }
 
-.modalbox h2 {
-  margin-top: 0;
-  margin-bottom: 10px;
+/* -------------------- CONTAINER -------------------- */
+
+.container{
+  position:relative;
+  z-index:3;
+  max-width:1100px;
+  margin:auto;
+  padding:30px 18px 80px;
 }
 
-.modalbox p {
-  color: #6f6575;
-  line-height: 1.6;
+/* -------------------- HERO -------------------- */
+
+.hero{
+  text-align:center;
+  padding:35px 10px 50px;
 }
 
-input {
-  width: 100%;
-  padding: 14px;
-  border: 1px solid #ddd2df;
-  border-radius: 13px;
-  outline: none;
-  font-size: 15px;
-  margin-top: 8px;
+.badge{
+  display:inline-block;
+  padding:10px 18px;
+  border-radius:999px;
+  background:rgba(255,255,255,.8);
+  border:1px solid rgba(220,205,225,.8);
+  box-shadow:0 8px 30px rgba(70,40,80,.08);
+  animation:badgeFloat 3s ease-in-out infinite;
 }
 
-input:focus {
-  border-color: #a34d75;
-  box-shadow: 0 0 0 3px rgba(163, 77, 117, .1);
-}
+@keyframes badgeFloat{
+  0%,100%{
+    transform:translateY(0);
+  }
 
-.actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 22px;
-}
-
-.actions button {
-  flex: 1;
-}
-
-.cancel {
-  background: #eee7ef;
-  color: #493d50;
-}
-
-.cancel:hover {
-  background: #e4dce6;
-}
-
-/* Konfetti */
-
-.confetti {
-  position: fixed;
-  top: -20px;
-  font-size: 20px;
-  z-index: 200;
-  pointer-events: none;
-  animation: fall linear forwards;
-}
-
-@keyframes fall {
-  to {
-    transform: translateY(110vh) rotate(720deg);
-    opacity: 0;
+  50%{
+    transform:translateY(-6px);
   }
 }
 
-/* Footer */
+h1{
+  margin:22px auto 14px;
+  max-width:850px;
+  font-size:clamp(36px,7vw,68px);
+  line-height:1.05;
 
-.footer {
-  text-align: center;
-  margin-top: 45px;
-  color: #958b99;
-  font-size: 13px;
+  background:linear-gradient(
+    90deg,
+    #352c40,
+    #b24e7b,
+    #7657b4,
+    #b24e7b,
+    #352c40
+  );
+
+  background-size:300%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  animation:titleGradient 6s linear infinite;
 }
 
-/* Telefon */
-
-@media (max-width: 600px) {
-
-  .container {
-    padding: 20px 14px 50px;
+@keyframes titleGradient{
+  0%{
+    background-position:0%;
   }
 
-  .hero {
-    padding-top: 20px;
+  100%{
+    background-position:300%;
+  }
+}
+
+.subtitle{
+  max-width:700px;
+  margin:auto;
+  color:#756b7d;
+  font-size:17px;
+  line-height:1.75;
+}
+
+.birthday-message{
+  max-width:700px;
+  margin:28px auto 0;
+  padding:20px 24px;
+  border-radius:25px;
+
+  background:rgba(255,255,255,.68);
+  border:1px solid rgba(255,255,255,.9);
+
+  box-shadow:
+    0 15px 50px rgba(80,40,90,.08),
+    inset 0 0 30px rgba(255,255,255,.5);
+
+  backdrop-filter:blur(12px);
+
+  animation:messageFloat 4s ease-in-out infinite;
+}
+
+@keyframes messageFloat{
+  0%,100%{
+    transform:translateY(0);
   }
 
-  h1 {
-    font-size: 38px;
+  50%{
+    transform:translateY(-5px);
+  }
+}
+
+/* -------------------- GIFTS -------------------- */
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:22px;
+}
+
+.card{
+  position:relative;
+  padding:25px;
+  border-radius:28px;
+
+  background:rgba(255,255,255,.82);
+  border:1px solid rgba(255,255,255,.95);
+
+  box-shadow:
+    0 15px 45px rgba(70,40,80,.08),
+    inset 0 0 30px rgba(255,255,255,.4);
+
+  backdrop-filter:blur(12px);
+
+  overflow:hidden;
+
+  opacity:0;
+  transform:translateY(35px) scale(.96);
+
+  animation:cardAppear .7s ease forwards;
+}
+
+.card:nth-child(1){animation-delay:.05s}
+.card:nth-child(2){animation-delay:.12s}
+.card:nth-child(3){animation-delay:.19s}
+.card:nth-child(4){animation-delay:.26s}
+.card:nth-child(5){animation-delay:.33s}
+.card:nth-child(6){animation-delay:.40s}
+.card:nth-child(7){animation-delay:.47s}
+.card:nth-child(8){animation-delay:.54s}
+.card:nth-child(9){animation-delay:.61s}
+.card:nth-child(10){animation-delay:.68s}
+.card:nth-child(11){animation-delay:.75s}
+.card:nth-child(12){animation-delay:.82s}
+.card:nth-child(13){animation-delay:.89s}
+
+@keyframes cardAppear{
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  background:rgba(255,215,232,.6);
+  top:-65px;
+  right:-55px;
+}
+
+.card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:28px;
+  background:linear-gradient(
+    120deg,
+    transparent 35%,
+    rgba(255,255,255,.7),
+    transparent 65%
+  );
+
+  transform:translateX(-120%);
+  transition:.7s;
+  pointer-events:none;
+}
+
+.card:hover::after{
+  transform:translateX(120%);
+}
+
+.card:hover{
+  transform:translateY(-8px) scale(1.015);
+  box-shadow:
+    0 25px 60px rgba(80,40,90,.14),
+    0 0 30px rgba(255,190,220,.2);
+}
+
+.icon{
+  position:relative;
+  z-index:2;
+  font-size:52px;
+  margin-bottom:12px;
+
+  display:inline-block;
+
+  animation:iconFloat 3s ease-in-out infinite;
+}
+
+@keyframes iconFloat{
+  0%,100%{
+    transform:translateY(0) rotate(0);
   }
 
-  .subtitle {
-    font-size: 15px;
+  50%{
+    transform:translateY(-7px) rotate(3deg);
+  }
+}
+
+.name{
+  position:relative;
+  z-index:2;
+  font-size:19px;
+  font-weight:750;
+  line-height:1.4;
+  min-height:54px;
+}
+
+.status{
+  position:relative;
+  z-index:2;
+  margin:13px 0 18px;
+  font-size:13px;
+  font-weight:700;
+}
+
+.available{
+  color:#25844a;
+}
+
+.taken{
+  color:#b54a69;
+}
+
+button{
+  position:relative;
+  z-index:2;
+
+  width:100%;
+  border:0;
+  border-radius:15px;
+
+  padding:14px 16px;
+
+  font-size:15px;
+  font-weight:750;
+
+  color:white;
+  background:linear-gradient(
+    135deg,
+    #332b3d,
+    #60475f
+  );
+
+  cursor:pointer;
+
+  box-shadow:0 8px 20px rgba(50,35,60,.15);
+
+  transition:.25s;
+}
+
+button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 25px rgba(50,35,60,.22);
+}
+
+button:active{
+  transform:scale(.97);
+}
+
+button:disabled{
+  background:#e8e2ea;
+  color:#8b8190;
+  cursor:not-allowed;
+  box-shadow:none;
+}
+
+/* -------------------- MODAL -------------------- */
+
+.modal{
+  position:fixed;
+  inset:0;
+
+  background:rgba(30,20,38,.58);
+  backdrop-filter:blur(8px);
+
+  display:none;
+  align-items:center;
+  justify-content:center;
+
+  padding:20px;
+
+  z-index:100;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modalbox{
+  width:100%;
+  max-width:450px;
+
+  padding:32px;
+
+  border-radius:30px;
+
+  background:rgba(255,255,255,.96);
+
+  box-shadow:
+    0 30px 100px rgba(0,0,0,.25),
+    0 0 40px rgba(255,180,215,.15);
+
+  animation:modalIn .35s cubic-bezier(.2,.8,.2,1);
+}
+
+@keyframes modalIn{
+  from{
+    opacity:0;
+    transform:scale(.75) translateY(30px);
   }
 
-  .grid {
-    grid-template-columns: 1fr;
+  to{
+    opacity:1;
+    transform:scale(1) translateY(0);
+  }
+}
+
+.modalbox h2{
+  margin:0 0 10px;
+  font-size:25px;
+}
+
+.modalbox p{
+  color:#6f6575;
+  line-height:1.6;
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+  margin-top:25px;
+}
+
+.actions button{
+  flex:1;
+}
+
+.cancel{
+  background:#eee7ef;
+  color:#493d50;
+}
+
+.cancel:hover{
+  background:#e1d7e4;
+}
+
+/* -------------------- CONFETTI -------------------- */
+
+.confetti{
+  position:fixed;
+  top:-40px;
+
+  z-index:300;
+  pointer-events:none;
+
+  animation:confettiFall linear forwards;
+}
+
+@keyframes confettiFall{
+  to{
+    transform:
+      translateY(110vh)
+      rotate(900deg);
+
+    opacity:0;
+  }
+}
+
+/* -------------------- BIG CELEBRATION -------------------- */
+
+.celebration{
+  position:fixed;
+  inset:0;
+
+  display:none;
+  align-items:center;
+  justify-content:center;
+
+  background:rgba(30,20,38,.45);
+  backdrop-filter:blur(5px);
+
+  z-index:250;
+}
+
+.celebration.show{
+  display:flex;
+}
+
+.celebration-box{
+  text-align:center;
+  color:white;
+
+  animation:celebrate .6s cubic-bezier(.2,.8,.2,1);
+}
+
+.celebration-box .big{
+  font-size:90px;
+  animation:bigGift 1s ease-in-out infinite;
+}
+
+.celebration-box h2{
+  font-size:38px;
+  margin:10px 0;
+}
+
+.celebration-box p{
+  font-size:18px;
+}
+
+@keyframes celebrate{
+  from{
+    opacity:0;
+    transform:scale(.5);
   }
 
-  .card {
-    padding: 21px;
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+@keyframes bigGift{
+  0%,100%{
+    transform:scale(1) rotate(-5deg);
   }
 
-  .modalbox {
-    padding: 24px;
+  50%{
+    transform:scale(1.15) rotate(5deg);
+  }
+}
+
+/* -------------------- FOOTER -------------------- */
+
+.note{
+  margin-top:35px;
+  text-align:center;
+  color:#8a8090;
+  font-size:13px;
+  line-height:1.7;
+}
+
+.footer{
+  margin-top:45px;
+  text-align:center;
+  color:#958b99;
+  font-size:13px;
+}
+
+/* -------------------- MOBILE -------------------- */
+
+@media(max-width:600px){
+
+  .container{
+    padding:20px 14px 60px;
   }
 
-  .actions {
-    flex-direction: column;
+  .hero{
+    padding-top:25px;
+  }
+
+  h1{
+    font-size:40px;
+  }
+
+  .subtitle{
+    font-size:15px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .card{
+    padding:22px;
+  }
+
+  .modalbox{
+    padding:25px;
+  }
+
+  .actions{
+    flex-direction:column;
+  }
+
+  .celebration-box .big{
+    font-size:70px;
+  }
+
+  .celebration-box h2{
+    font-size:30px;
   }
 }
 </style>
@@ -374,10 +613,10 @@ input:focus {
 
 <body>
 
-<div class="decoration d1">🎀</div>
-<div class="decoration d2">🎈</div>
-<div class="decoration d3">✨</div>
-<div class="decoration d4">🌸</div>
+<div class="background-glow">
+  <div class="glow one"></div>
+  <div class="glow two"></div>
+</div>
 
 <div class="container">
 
@@ -385,7 +624,9 @@ input:focus {
 
     <span class="badge">🎂 10-sentabr</span>
 
-    <h1>Sug‘diyonaning tug‘ilgan kuni 🎀</h1>
+    <h1>
+      Sug‘diyonaning tug‘ilgan kuni 🎀
+    </h1>
 
     <p class="subtitle">
       Agar nima sovg‘a qilishni bilmayotgan bo‘lsangiz,
@@ -395,18 +636,21 @@ input:focus {
     <div class="birthday-message">
       ✨ <b>Eng muhimi — sovg‘aning narxi emas, uni mehr bilan tanlaganingiz.</b>
       <br>
-      Sug‘diyonaga chiroyli xotira qoldiradigan sovg‘ani tanlang. 🎁
+      Chiroyli xotira qoldiradigan sovg‘ani tanlang. 🎁
     </div>
 
   </section>
 
+
   <section id="wishlist" class="grid"></section>
 
+
   <p class="note">
-    🎁 Sovg‘ani tanlaganingizdan keyin ismingizni kiriting.
+    🎁 O‘zingizga yoqqan sovg‘ani tanlang.
     <br>
-    Shunda bu sovg‘a tanlanganini eslab qolamiz. ❤️
+    Tanlangan sovg‘a boshqa odamlar uchun band bo‘ladi. ❤️
   </p>
+
 
   <div class="footer">
     Made with love 🎀
@@ -415,7 +659,7 @@ input:focus {
 </div>
 
 
-<!-- SOVG'A TANLASH OYNASI -->
+<!-- MODAL -->
 
 <div id="modal" class="modal">
 
@@ -425,22 +669,16 @@ input:focus {
 
     <p id="modalText"></p>
 
-    <label>
-      <b>Ismingiz:</b>
-      <input
-        id="nameInput"
-        type="text"
-        placeholder="Masalan: Madina"
-      >
-    </label>
-
     <div class="actions">
 
-      <button class="cancel" onclick="closeModal()">
+      <button
+        class="cancel"
+        onclick="closeModal()">
         Bekor qilish
       </button>
 
-      <button onclick="confirmChoice()">
+      <button
+        onclick="confirmChoice()">
         Ha, tanlayman ❤️
       </button>
 
@@ -451,41 +689,79 @@ input:focus {
 </div>
 
 
+<!-- CELEBRATION -->
+
+<div id="celebration" class="celebration">
+
+  <div class="celebration-box">
+
+    <div class="big">🎁</div>
+
+    <h2>Tanlandi! ❤️</h2>
+
+    <p>Sovg‘a muvaffaqiyatli tanlandi 🎉</p>
+
+  </div>
+
+</div>
+
+
 <script>
 
-/* SOVG'ALAR RO'YXATI */
+/* =========================
+   SOVG'ALAR
+========================= */
 
 const gifts = [
-  { id: 1, icon: "📱", name: "Telefon", taken: false },
-  { id: 2, icon: "📷", name: "Fotoapparat", taken: false },
-  { id: 3, icon: "🎀", name: "Chiroyli sumka", taken: false },
-  { id: 4, icon: "👟", name: "Butsi", taken: false },
-  { id: 5, icon: "👗", name: "Ko‘ylak", taken: false },
-  { id: 6, icon: "💐", name: "Gullar", taken: false },
-  { id: 7, icon: "💄", name: "Kosmetika to‘plami", taken: false },
-  { id: 8, icon: "🎬", name: "Kinoga chipta", taken: false },
-  { id: 9, icon: "🎬", name: "O'zim senga alohida sovg'a tayyorlaganman", taken: false },
-  { id: 10, icon: "🎬", name: "O'zim senga alohida sovg'a tayyorlaganman", taken: false },
-  { id: 11, icon: "🎬", name: "O'zim senga alohida sovg'a tayyorlaganman", taken: false },
-  { id: 12, icon: "🎁", name: "Dyson", taken: false }
+
+  { id:1, icon:"📱", name:"Telefon", taken:false },
+
+  { id:2, icon:"📷", name:"Fotoapparat", taken:false },
+
+  { id:3, icon:"👟", name:"Butsi", taken:false },
+
+  { id:4, icon:"👗", name:"Ko‘ylak", taken:false },
+
+  { id:5, icon:"💐", name:"Gullar", taken:false },
+
+  { id:6, icon:"💄", name:"Kosmetika to‘plami", taken:false },
+
+  { id:7, icon:"🎬", name:"Kinoga chipta", taken:false },
+
+  { id:8, icon:"🎬", name:"O'zim senga alohida sovg'a tayyorlaganman", taken:false },
+
+  { id:9, icon:"🎬", name:"O'zim senga alohida sovg'a tayyorlaganman", taken:false },
+
+  { id:10, icon:"🎬", name:"O'zim senga alohida sovg'a tayyorlaganman", taken:false },
+
+  { id:11, icon:"🎬", name:"O'zim senga alohida sovg'a tayyorlaganman", taken:false },
+
+  { id:12, icon:"🎬", name:"O'zim senga alohida sovg'a tayyorlaganman", taken:false },
+
+  { id:13, icon:"🎁", name:"Dyson", taken:false }
+
 ];
+
 
 let selectedId = null;
 
 
-/* Saqlangan sovg'alarni yuklash */
+/* =========================
+   LOCAL STORAGE
+========================= */
 
-function loadTaken() {
+function loadTaken(){
 
   const saved =
-    JSON.parse(localStorage.getItem("birthdayGifts") || "{}");
+    JSON.parse(
+      localStorage.getItem("birthdayGifts") || "{}"
+    );
 
   gifts.forEach(gift => {
 
-    if (saved[gift.id]) {
+    if(saved[gift.id]){
 
       gift.taken = true;
-      gift.takenBy = saved[gift.id];
 
     }
 
@@ -494,17 +770,15 @@ function loadTaken() {
 }
 
 
-/* Tanlangan sovg'alarni saqlash */
-
-function saveTaken() {
+function saveTaken(){
 
   const saved = {};
 
   gifts.forEach(gift => {
 
-    if (gift.taken) {
+    if(gift.taken){
 
-      saved[gift.id] = gift.takenBy;
+      saved[gift.id] = true;
 
     }
 
@@ -518,169 +792,140 @@ function saveTaken() {
 }
 
 
-/* Sovg'alarni ekranga chiqarish */
+/* =========================
+   RENDER
+========================= */
 
-function render() {
+function render(){
 
   const el =
     document.getElementById("wishlist");
 
-  el.innerHTML = gifts.map(g => `
+  el.innerHTML =
+    gifts.map(g => `
 
-    <article class="card">
+      <article class="card">
 
-      <div class="icon">
-        ${g.icon}
-      </div>
+        <div class="icon">
+          ${g.icon}
+        </div>
 
-      <div class="name">
-        ${escapeHtml(g.name)}
-      </div>
+        <div class="name">
+          ${escapeHtml(g.name)}
+        </div>
 
-      <div class="status ${g.taken ? "taken" : "available"}">
+        <div
+          class="status ${g.taken ? "taken" : "available"}">
 
-        ${
-          g.taken
-          ? `🔴 Tanlangan${g.takenBy ? " — " + escapeHtml(g.takenBy) : ""}`
-          : "🟢 Hali tanlanmagan"
-        }
+          ${
+            g.taken
+            ? "🔴 Tanlangan"
+            : "🟢 Hali tanlanmagan"
+          }
 
-      </div>
+        </div>
 
-      <button
-        ${g.taken ? "disabled" : ""}
-        onclick="openModal(${g.id})"
-      >
+        <button
+          ${g.taken ? "disabled" : ""}
+          onclick="openModal(${g.id})">
 
-        ${
-          g.taken
-          ? "Bu sovg‘a allaqachon tanlangan"
-          : "Men buni tanlayman 🎁"
-        }
+          ${
+            g.taken
+            ? "Bu sovg‘a allaqachon tanlangan"
+            : "Men buni tanlayman 🎁"
+          }
 
-      </button>
+        </button>
 
-    </article>
+      </article>
 
-  `).join("");
+    `).join("");
 
 }
 
 
-/* Oyna ochish */
+/* =========================
+   MODAL
+========================= */
 
-function openModal(id) {
+function openModal(id){
 
   selectedId = id;
 
   const gift =
     gifts.find(g => g.id === id);
 
-  document.getElementById("modalText").textContent =
-    `“${gift.name}” sovg‘asini Sug‘diyonaga olib berishni xohlaysizmi?`;
+  document.getElementById("modalText")
+    .textContent =
+    `“${gift.name}” sovg‘asini tanlamoqchimisiz?`;
 
-  document.getElementById("nameInput").value = "";
-
-  document
-    .getElementById("modal")
+  document.getElementById("modal")
     .classList.add("show");
-
-  setTimeout(() => {
-
-    document
-      .getElementById("nameInput")
-      .focus();
-
-  }, 100);
 
 }
 
 
-/* Oynani yopish */
-
-function closeModal() {
+function closeModal(){
 
   selectedId = null;
 
-  document
-    .getElementById("modal")
+  document.getElementById("modal")
     .classList.remove("show");
 
 }
 
 
-/* Sovg'ani tanlash */
+/* =========================
+   CONFIRM
+========================= */
 
-function confirmChoice() {
-
-  const name =
-    document.getElementById("nameInput").value.trim();
-
-  if (!name) {
-
-    alert("Iltimos, ismingizni kiriting ❤️");
-
-    return;
-
-  }
+function confirmChoice(){
 
   const gift =
     gifts.find(g => g.id === selectedId);
 
-  if (gift) {
+  if(!gift) return;
 
-    gift.taken = true;
+  gift.taken = true;
 
-    gift.takenBy = name;
+  saveTaken();
 
-    saveTaken();
+  closeModal();
 
-    closeModal();
+  render();
 
-    render();
+  createConfetti();
 
-    createConfetti();
-
-  }
+  showCelebration();
 
 }
 
 
-/* Tashqarisini bosganda yopish */
+/* =========================
+   CELEBRATION
+========================= */
 
-document
-  .getElementById("modal")
-  .addEventListener("click", function(e) {
+function showCelebration(){
 
-    if (e.target === this) {
+  const celebration =
+    document.getElementById("celebration");
 
-      closeModal();
+  celebration.classList.add("show");
 
-    }
+  setTimeout(() => {
 
-  });
+    celebration.classList.remove("show");
 
-
-/* Xavfsiz matn */
-
-function escapeHtml(s) {
-
-  return String(s).replace(/[&<>"']/g, c => ({
-
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#039;"
-
-  }[c]));
+  },2300);
 
 }
 
 
-/* Konfetti */
+/* =========================
+   CONFETTI
+========================= */
 
-function createConfetti() {
+function createConfetti(){
 
   const symbols = [
     "🎉",
@@ -689,10 +934,11 @@ function createConfetti() {
     "✨",
     "🎈",
     "🌸",
-    "🎁"
+    "🎁",
+    "⭐"
   ];
 
-  for (let i = 0; i < 35; i++) {
+  for(let i=0;i<80;i++){
 
     const item =
       document.createElement("div");
@@ -700,16 +946,20 @@ function createConfetti() {
     item.className = "confetti";
 
     item.textContent =
-      symbols[Math.floor(Math.random() * symbols.length)];
+      symbols[
+        Math.floor(
+          Math.random() * symbols.length
+        )
+      ];
 
     item.style.left =
-      Math.random() * 100 + "vw";
+      Math.random()*100 + "vw";
 
     item.style.animationDuration =
-      (2 + Math.random() * 3) + "s";
+      (2 + Math.random()*3) + "s";
 
     item.style.fontSize =
-      (14 + Math.random() * 14) + "px";
+      (14 + Math.random()*20) + "px";
 
     document.body.appendChild(item);
 
@@ -717,14 +967,123 @@ function createConfetti() {
 
       item.remove();
 
-    }, 5000);
+    },5500);
 
   }
 
 }
 
 
-/* Ishga tushirish */
+/* =========================
+   FLOATING HEARTS
+========================= */
+
+function createHeart(){
+
+  const heart =
+    document.createElement("div");
+
+  heart.className = "float-heart";
+
+  const symbols = [
+    "💖",
+    "💕",
+    "💗",
+    "✨",
+    "🌸"
+  ];
+
+  heart.textContent =
+    symbols[
+      Math.floor(
+        Math.random()*symbols.length
+      )
+    ];
+
+  heart.style.left =
+    Math.random()*100 + "vw";
+
+  heart.style.animationDuration =
+    (6 + Math.random()*6) + "s";
+
+  heart.style.fontSize =
+    (14 + Math.random()*18) + "px";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+
+    heart.remove();
+
+  },13000);
+
+}
+
+
+/* Har 1.5 son yangi yurak */
+
+setInterval(
+  createHeart,
+  1500
+);
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHtml(s){
+
+  return String(s).replace(
+    /[&<>"']/g,
+    c => ({
+
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
+
+    }[c])
+  );
+
+}
+
+
+/* =========================
+   MODAL OUTSIDE CLICK
+========================= */
+
+document
+  .getElementById("modal")
+  .addEventListener(
+    "click",
+    function(e){
+
+      if(e.target === this){
+
+        closeModal();
+
+      }
+
+    }
+  );
+
+
+/* =========================
+   PAGE OPEN CONFETTI
+========================= */
+
+setTimeout(() => {
+
+  createConfetti();
+
+},700);
+
+
+/* =========================
+   START
+========================= */
 
 loadTaken();
 
