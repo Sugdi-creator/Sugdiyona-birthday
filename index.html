@@ -3,58 +3,462 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Sug‘diyonaning tug‘ilgan kuni 🎂</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:linear-gradient(135deg,#fff7fb,#f8f5ff);color:#332b3d}
-.container{max-width:950px;margin:auto;padding:36px 18px 60px}
-.hero{text-align:center;padding:25px 10px 30px}.badge{display:inline-block;background:#fff;border:1px solid #eaddea;border-radius:999px;padding:8px 14px;font-size:14px}
-h1{font-size:clamp(30px,6vw,52px);margin:18px 0 8px}.subtitle{font-size:17px;color:#756b7d;max-width:620px;margin:auto;line-height:1.6}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-.card{background:rgba(255,255,255,.9);border:1px solid #eee4ef;border-radius:22px;padding:22px;box-shadow:0 8px 30px rgba(70,40,80,.07);transition:.2s}.card:hover{transform:translateY(-2px)}
-.icon{font-size:42px}.name{font-size:20px;font-weight:700;margin:12px 0}.status{font-size:14px;margin:8px 0 17px}.available{color:#27844c}.taken{color:#b44a67}
-button{width:100%;border:0;border-radius:13px;padding:12px 14px;font-size:15px;font-weight:700;cursor:pointer;background:#332b3d;color:#fff}
-button:disabled{background:#e8e2ea;color:#8b8190;cursor:not-allowed}
-.empty{text-align:center;padding:50px;color:#82788a}
-.modal{position:fixed;inset:0;background:rgba(35,25,40,.5);display:none;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}
-.modalbox{background:#fff;border-radius:24px;max-width:430px;width:100%;padding:28px}.modalbox h2{margin-top:0}.actions{display:flex;gap:10px;margin-top:22px}.actions button{flex:1}.cancel{background:#eee7ef;color:#493d50}
-.note{margin-top:28px;text-align:center;color:#8a8090;font-size:13px}
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 10% 10%, #ffe5f0 0, transparent 25%),
+    radial-gradient(circle at 90% 20%, #e9e2ff 0, transparent 25%),
+    linear-gradient(135deg, #fff8fb, #f8f5ff);
+  color: #332b3d;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Bezaklar */
+
+.decoration {
+  position: fixed;
+  font-size: 28px;
+  opacity: .45;
+  pointer-events: none;
+  animation: float 5s ease-in-out infinite;
+  z-index: 0;
+}
+
+.d1 {
+  top: 10%;
+  left: 4%;
+}
+
+.d2 {
+  top: 25%;
+  right: 5%;
+  animation-delay: 1s;
+}
+
+.d3 {
+  bottom: 15%;
+  left: 6%;
+  animation-delay: 2s;
+}
+
+.d4 {
+  bottom: 8%;
+  right: 8%;
+  animation-delay: 3s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-15px) rotate(8deg);
+  }
+}
+
+/* Asosiy qism */
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 1050px;
+  margin: auto;
+  padding: 30px 18px 70px;
+}
+
+/* Yuqori qism */
+
+.hero {
+  text-align: center;
+  padding: 25px 10px 35px;
+}
+
+.badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, .85);
+  border: 1px solid #eaddea;
+  border-radius: 999px;
+  padding: 9px 17px;
+  font-size: 14px;
+  box-shadow: 0 8px 25px rgba(70, 40, 80, .06);
+}
+
+h1 {
+  font-size: clamp(34px, 7vw, 58px);
+  line-height: 1.1;
+  margin: 20px 0 12px;
+  background: linear-gradient(90deg, #332b3d, #a34d75, #6c54a3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  font-size: 17px;
+  color: #756b7d;
+  max-width: 680px;
+  margin: auto;
+  line-height: 1.7;
+}
+
+.birthday-message {
+  margin: 25px auto 0;
+  max-width: 650px;
+  background: rgba(255, 255, 255, .72);
+  border: 1px solid #eee4ef;
+  border-radius: 22px;
+  padding: 18px 20px;
+  color: #5d5265;
+  box-shadow: 0 10px 35px rgba(70, 40, 80, .06);
+}
+
+/* Sovg'alar */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  position: relative;
+  background: rgba(255, 255, 255, .88);
+  border: 1px solid #eee4ef;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 10px 35px rgba(70, 40, 80, .08);
+  transition: .25s ease;
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  background: #ffe7f1;
+  border-radius: 50%;
+  top: -45px;
+  right: -35px;
+  opacity: .6;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(70, 40, 80, .13);
+}
+
+.icon {
+  font-size: 48px;
+  margin-bottom: 5px;
+}
+
+.name {
+  font-size: 20px;
+  font-weight: 750;
+  margin: 10px 0;
+}
+
+.status {
+  font-size: 14px;
+  margin: 8px 0 18px;
+  font-weight: 600;
+}
+
+.available {
+  color: #27844c;
+}
+
+.taken {
+  color: #b44a67;
+}
+
+button {
+  width: 100%;
+  border: 0;
+  border-radius: 14px;
+  padding: 13px 15px;
+  font-size: 15px;
+  font-weight: 750;
+  cursor: pointer;
+  background: #332b3d;
+  color: #fff;
+  transition: .2s;
+}
+
+button:hover {
+  transform: scale(1.02);
+  background: #493d53;
+}
+
+button:disabled {
+  background: #e8e2ea;
+  color: #8b8190;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Izoh */
+
+.note {
+  margin-top: 32px;
+  text-align: center;
+  color: #8a8090;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* Modal */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(35, 25, 40, .58);
+  backdrop-filter: blur(5px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 100;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modalbox {
+  background: #fff;
+  border-radius: 28px;
+  max-width: 450px;
+  width: 100%;
+  padding: 30px;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, .2);
+  animation: popup .25s ease;
+}
+
+@keyframes popup {
+  from {
+    opacity: 0;
+    transform: scale(.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modalbox h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.modalbox p {
+  color: #6f6575;
+  line-height: 1.6;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ddd2df;
+  border-radius: 13px;
+  outline: none;
+  font-size: 15px;
+  margin-top: 8px;
+}
+
+input:focus {
+  border-color: #a34d75;
+  box-shadow: 0 0 0 3px rgba(163, 77, 117, .1);
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.actions button {
+  flex: 1;
+}
+
+.cancel {
+  background: #eee7ef;
+  color: #493d50;
+}
+
+.cancel:hover {
+  background: #e4dce6;
+}
+
+/* Konfetti */
+
+.confetti {
+  position: fixed;
+  top: -20px;
+  font-size: 20px;
+  z-index: 200;
+  pointer-events: none;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* Footer */
+
+.footer {
+  text-align: center;
+  margin-top: 45px;
+  color: #958b99;
+  font-size: 13px;
+}
+
+/* Telefon */
+
+@media (max-width: 600px) {
+
+  .container {
+    padding: 20px 14px 50px;
+  }
+
+  .hero {
+    padding-top: 20px;
+  }
+
+  h1 {
+    font-size: 38px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 21px;
+  }
+
+  .modalbox {
+    padding: 24px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+}
 </style>
 </head>
+
 <body>
+
+<div class="decoration d1">🎀</div>
+<div class="decoration d2">🎈</div>
+<div class="decoration d3">✨</div>
+<div class="decoration d4">🌸</div>
+
 <div class="container">
+
   <section class="hero">
+
     <span class="badge">🎂 10-sentabr</span>
+
     <h1>Sug‘diyonaning tug‘ilgan kuni 🎀</h1>
-    <p class="subtitle">Agar nima sovg‘a qilishni bilmayotgan bo‘lsangiz, quyidagi ro‘yxatdan o‘zingizga yoqqanini tanlashingiz mumkin. 🤍</p>
+
+    <p class="subtitle">
+      Agar nima sovg‘a qilishni bilmayotgan bo‘lsangiz,
+      quyidagi ro‘yxatdan o‘zingizga yoqqan sovg‘ani tanlashingiz mumkin. 🤍
+    </p>
+
+    <div class="birthday-message">
+      ✨ <b>Eng muhimi — sovg‘aning narxi emas, uni mehr bilan tanlaganingiz.</b>
+      <br>
+      Sug‘diyonaga chiroyli xotira qoldiradigan sovg‘ani tanlang. 🎁
+    </div>
+
   </section>
+
   <section id="wishlist" class="grid"></section>
-  <p class="note">Sovg‘a tanlanganidan keyin u boshqalarga ham “Tanlangan” deb ko‘rinadi.</p>
+
+  <p class="note">
+    🎁 Sovg‘ani tanlaganingizdan keyin ismingizni kiriting.
+    <br>
+    Shunda bu sovg‘a tanlanganini eslab qolamiz. ❤️
+  </p>
+
+  <div class="footer">
+    Made with love 🎀
+  </div>
+
 </div>
+
+
+<!-- SOVG'A TANLASH OYNASI -->
 
 <div id="modal" class="modal">
+
   <div class="modalbox">
+
     <h2>🎁 Sovg‘ani tanlaysizmi?</h2>
+
     <p id="modalText"></p>
+
+    <label>
+      <b>Ismingiz:</b>
+      <input
+        id="nameInput"
+        type="text"
+        placeholder="Masalan: Madina"
+      >
+    </label>
+
     <div class="actions">
-      <button class="cancel" onclick="closeModal()">Bekor qilish</button>
-      <button onclick="confirmChoice()">Ha, tanlayman ❤️</button>
+
+      <button class="cancel" onclick="closeModal()">
+        Bekor qilish
+      </button>
+
+      <button onclick="confirmChoice()">
+        Ha, tanlayman ❤️
+      </button>
+
     </div>
+
   </div>
+
 </div>
 
+
 <script>
-/*
-  SOVG‘ALAR RO‘YXATI:
-  Shu massiv ichiga o‘zingiz sovg‘alarni kiriting.
-  Misol:
-  { id: 1, icon: "🎧", name: "AirPods", taken: false }
-  const gifts = 
-];
-*/
+
+/* SOVG'ALAR RO'YXATI */
+
 const gifts = [
   { id: 1, icon: "📱", name: "Telefon", taken: false },
   { id: 2, icon: "📷", name: "Fotoapparat", taken: false },
-  { id: 3, icon: "🎀", name: "Chiroyli sumka", taken: false },  
+  { id: 3, icon: "🎀", name: "Chiroyli sumka", taken: false },
   { id: 4, icon: "👟", name: "Butsi", taken: false },
   { id: 5, icon: "👗", name: "Ko‘ylak", taken: false },
   { id: 6, icon: "💐", name: "Gullar", taken: false },
@@ -63,55 +467,270 @@ const gifts = [
   { id: 9, icon: "🎬", name: "O'zim senga alohida sovg'a tayyorlaganman", taken: false },
   { id: 10, icon: "🎬", name: "O'zim senga alohida sovg'a tayyorlaganman", taken: false },
   { id: 11, icon: "🎬", name: "O'zim senga alohida sovg'a tayyorlaganman", taken: false },
-  { id: 11, icon: "🎬", name: "Dayson", taken: false }
-  
+  { id: 12, icon: "🎁", name: "Dyson", taken: false }
 ];
 
 let selectedId = null;
 
-function render() {
-  const el = document.getElementById("wishlist");
-  if (!gifts.length) {
-    el.innerHTML = '<div class="empty">🎀 Hozircha sovg‘alar qo‘shilmagan.<br><br>Sahifadagi <b>gifts</b> ro‘yxatiga sovg‘alaringizni kiriting.</div>';
-    return;
-  }
-  el.innerHTML = gifts.map(g => `
-    <article class="card">
-      <div class="icon">${g.icon || "🎁"}</div>
-      <div class="name">${escapeHtml(g.name)}</div>
-      <div class="status ${g.taken ? "taken" : "available"}">
-        ${g.taken ? "🔴 Tanlangan" : "🟢 Hali tanlanmagan"}
-      </div>
-      <button ${g.taken ? "disabled" : ""} onclick="openModal(${g.id})">
-        ${g.taken ? "Bu sovg‘a allaqachon tanlangan" : "Men buni tanlayman 🎁"}
-      </button>
-    </article>
-  `).join("");
+
+/* Saqlangan sovg'alarni yuklash */
+
+function loadTaken() {
+
+  const saved =
+    JSON.parse(localStorage.getItem("birthdayGifts") || "{}");
+
+  gifts.forEach(gift => {
+
+    if (saved[gift.id]) {
+
+      gift.taken = true;
+      gift.takenBy = saved[gift.id];
+
+    }
+
+  });
+
 }
 
+
+/* Tanlangan sovg'alarni saqlash */
+
+function saveTaken() {
+
+  const saved = {};
+
+  gifts.forEach(gift => {
+
+    if (gift.taken) {
+
+      saved[gift.id] = gift.takenBy;
+
+    }
+
+  });
+
+  localStorage.setItem(
+    "birthdayGifts",
+    JSON.stringify(saved)
+  );
+
+}
+
+
+/* Sovg'alarni ekranga chiqarish */
+
+function render() {
+
+  const el =
+    document.getElementById("wishlist");
+
+  el.innerHTML = gifts.map(g => `
+
+    <article class="card">
+
+      <div class="icon">
+        ${g.icon}
+      </div>
+
+      <div class="name">
+        ${escapeHtml(g.name)}
+      </div>
+
+      <div class="status ${g.taken ? "taken" : "available"}">
+
+        ${
+          g.taken
+          ? `🔴 Tanlangan${g.takenBy ? " — " + escapeHtml(g.takenBy) : ""}`
+          : "🟢 Hali tanlanmagan"
+        }
+
+      </div>
+
+      <button
+        ${g.taken ? "disabled" : ""}
+        onclick="openModal(${g.id})"
+      >
+
+        ${
+          g.taken
+          ? "Bu sovg‘a allaqachon tanlangan"
+          : "Men buni tanlayman 🎁"
+        }
+
+      </button>
+
+    </article>
+
+  `).join("");
+
+}
+
+
+/* Oyna ochish */
+
 function openModal(id) {
+
   selectedId = id;
-  const gift = gifts.find(g => g.id === id);
+
+  const gift =
+    gifts.find(g => g.id === id);
+
   document.getElementById("modalText").textContent =
     `“${gift.name}” sovg‘asini Sug‘diyonaga olib berishni xohlaysizmi?`;
-  document.getElementById("modal").classList.add("show");
+
+  document.getElementById("nameInput").value = "";
+
+  document
+    .getElementById("modal")
+    .classList.add("show");
+
+  setTimeout(() => {
+
+    document
+      .getElementById("nameInput")
+      .focus();
+
+  }, 100);
+
 }
+
+
+/* Oynani yopish */
+
 function closeModal() {
+
   selectedId = null;
-  document.getElementById("modal").classList.remove("show");
+
+  document
+    .getElementById("modal")
+    .classList.remove("show");
+
 }
+
+
+/* Sovg'ani tanlash */
+
 function confirmChoice() {
-  const gift = gifts.find(g => g.id === selectedId);
-  if (gift) gift.taken = true;
-  closeModal();
-  render();
+
+  const name =
+    document.getElementById("nameInput").value.trim();
+
+  if (!name) {
+
+    alert("Iltimos, ismingizni kiriting ❤️");
+
+    return;
+
+  }
+
+  const gift =
+    gifts.find(g => g.id === selectedId);
+
+  if (gift) {
+
+    gift.taken = true;
+
+    gift.takenBy = name;
+
+    saveTaken();
+
+    closeModal();
+
+    render();
+
+    createConfetti();
+
+  }
+
 }
+
+
+/* Tashqarisini bosganda yopish */
+
+document
+  .getElementById("modal")
+  .addEventListener("click", function(e) {
+
+    if (e.target === this) {
+
+      closeModal();
+
+    }
+
+  });
+
+
+/* Xavfsiz matn */
+
 function escapeHtml(s) {
+
   return String(s).replace(/[&<>"']/g, c => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;"
+
   }[c]));
+
 }
+
+
+/* Konfetti */
+
+function createConfetti() {
+
+  const symbols = [
+    "🎉",
+    "🎀",
+    "💖",
+    "✨",
+    "🎈",
+    "🌸",
+    "🎁"
+  ];
+
+  for (let i = 0; i < 35; i++) {
+
+    const item =
+      document.createElement("div");
+
+    item.className = "confetti";
+
+    item.textContent =
+      symbols[Math.floor(Math.random() * symbols.length)];
+
+    item.style.left =
+      Math.random() * 100 + "vw";
+
+    item.style.animationDuration =
+      (2 + Math.random() * 3) + "s";
+
+    item.style.fontSize =
+      (14 + Math.random() * 14) + "px";
+
+    document.body.appendChild(item);
+
+    setTimeout(() => {
+
+      item.remove();
+
+    }, 5000);
+
+  }
+
+}
+
+
+/* Ishga tushirish */
+
+loadTaken();
+
 render();
+
 </script>
+
 </body>
 </html>
