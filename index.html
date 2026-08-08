@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sug‘diyonaning tug‘ilgan kuni 🎂</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:linear-gradient(135deg,#fff7fb,#f8f5ff);color:#332b3d}
+.container{max-width:950px;margin:auto;padding:36px 18px 60px}
+.hero{text-align:center;padding:25px 10px 30px}.badge{display:inline-block;background:#fff;border:1px solid #eaddea;border-radius:999px;padding:8px 14px;font-size:14px}
+h1{font-size:clamp(30px,6vw,52px);margin:18px 0 8px}.subtitle{font-size:17px;color:#756b7d;max-width:620px;margin:auto;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.card{background:rgba(255,255,255,.9);border:1px solid #eee4ef;border-radius:22px;padding:22px;box-shadow:0 8px 30px rgba(70,40,80,.07);transition:.2s}.card:hover{transform:translateY(-2px)}
+.icon{font-size:42px}.name{font-size:20px;font-weight:700;margin:12px 0}.status{font-size:14px;margin:8px 0 17px}.available{color:#27844c}.taken{color:#b44a67}
+button{width:100%;border:0;border-radius:13px;padding:12px 14px;font-size:15px;font-weight:700;cursor:pointer;background:#332b3d;color:#fff}
+button:disabled{background:#e8e2ea;color:#8b8190;cursor:not-allowed}
+.empty{text-align:center;padding:50px;color:#82788a}
+.modal{position:fixed;inset:0;background:rgba(35,25,40,.5);display:none;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}
+.modalbox{background:#fff;border-radius:24px;max-width:430px;width:100%;padding:28px}.modalbox h2{margin-top:0}.actions{display:flex;gap:10px;margin-top:22px}.actions button{flex:1}.cancel{background:#eee7ef;color:#493d50}
+.note{margin-top:28px;text-align:center;color:#8a8090;font-size:13px}
+</style>
+</head>
+<body>
+<div class="container">
+  <section class="hero">
+    <span class="badge">🎂 10-sentabr</span>
+    <h1>Sug‘diyonaning tug‘ilgan kuni 🎀</h1>
+    <p class="subtitle">Agar nima sovg‘a qilishni bilmayotgan bo‘lsangiz, quyidagi ro‘yxatdan o‘zingizga yoqqanini tanlashingiz mumkin. 🤍</p>
+  </section>
+  <section id="wishlist" class="grid"></section>
+  <p class="note">Sovg‘a tanlanganidan keyin u boshqalarga ham “Tanlangan” deb ko‘rinadi.</p>
+</div>
+
+<div id="modal" class="modal">
+  <div class="modalbox">
+    <h2>🎁 Sovg‘ani tanlaysizmi?</h2>
+    <p id="modalText"></p>
+    <div class="actions">
+      <button class="cancel" onclick="closeModal()">Bekor qilish</button>
+      <button onclick="confirmChoice()">Ha, tanlayman ❤️</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/*
+  SOVG‘ALAR RO‘YXATI:
+  Shu massiv ichiga o‘zingiz sovg‘alarni kiriting.
+  Misol:
+  { id: 1, icon: "🎧", name: "AirPods", taken: false }
+*/
+const gifts = [
+  // { id: 1, icon: "🎁", name: "Sovg‘a nomi", taken: false },
+];
+
+let selectedId = null;
+
+function render() {
+  const el = document.getElementById("wishlist");
+  if (!gifts.length) {
+    el.innerHTML = '<div class="empty">🎀 Hozircha sovg‘alar qo‘shilmagan.<br><br>Sahifadagi <b>gifts</b> ro‘yxatiga sovg‘alaringizni kiriting.</div>';
+    return;
+  }
+  el.innerHTML = gifts.map(g => `
+    <article class="card">
+      <div class="icon">${g.icon || "🎁"}</div>
+      <div class="name">${escapeHtml(g.name)}</div>
+      <div class="status ${g.taken ? "taken" : "available"}">
+        ${g.taken ? "🔴 Tanlangan" : "🟢 Hali tanlanmagan"}
+      </div>
+      <button ${g.taken ? "disabled" : ""} onclick="openModal(${g.id})">
+        ${g.taken ? "Bu sovg‘a allaqachon tanlangan" : "Men buni tanlayman 🎁"}
+      </button>
+    </article>
+  `).join("");
+}
+
+function openModal(id) {
+  selectedId = id;
+  const gift = gifts.find(g => g.id === id);
+  document.getElementById("modalText").textContent =
+    `“${gift.name}” sovg‘asini Sug‘diyonaga olib berishni xohlaysizmi?`;
+  document.getElementById("modal").classList.add("show");
+}
+function closeModal() {
+  selectedId = null;
+  document.getElementById("modal").classList.remove("show");
+}
+function confirmChoice() {
+  const gift = gifts.find(g => g.id === selectedId);
+  if (gift) gift.taken = true;
+  closeModal();
+  render();
+}
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[c]));
+}
+render();
+</script>
+</body>
+</html>
